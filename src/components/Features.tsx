@@ -15,7 +15,7 @@ const features = [
     icon: ScanLine,
     title: "13-Barcode Scanner",
     description:
-      "QR, EAN-13, EAN-8, UPC-A, UPC-E, Code 39, Code 93, Code 128, Codabar, ITF-14, PDF417, Aztec, DataMatrix — all native, no external hardware.",
+      "QR, EAN-13, UPC, Code 128, PDF417, DataMatrix, and more — recognized natively, no external hardware.",
     span: "md:col-span-2 md:row-span-2",
     gradient: "from-accent/10 to-blue-500/5",
     iconBg: "bg-accent/10 text-accent",
@@ -75,7 +75,7 @@ export default function Features() {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.02] to-transparent pointer-events-none" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <FadeIn className="text-center max-w-3xl mx-auto mb-16">
+        <FadeIn className="text-center max-w-3xl mx-auto mb-20">
           <span className="text-accent text-sm font-semibold tracking-wider uppercase">
             Features
           </span>
@@ -89,11 +89,13 @@ export default function Features() {
           </p>
         </FadeIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {features.map((feature, i) => (
             <FadeIn key={feature.title} delay={i * 0.08}>
               <div
-                className={`group relative rounded-2xl bg-surface border border-border p-7 hover:border-border-hover transition-all duration-300 hover:-translate-y-1 h-full ${
+                className={`group relative rounded-2xl bg-surface border border-border ${
+                  feature.large ? "p-10" : "p-8"
+                } hover:border-border-hover transition-all duration-300 hover:-translate-y-1 h-full ${
                   feature.span
                 }`}
               >
@@ -102,7 +104,7 @@ export default function Features() {
                 />
                 <div className="relative z-10">
                   <div
-                    className={`inline-flex items-center justify-center w-11 h-11 rounded-xl ${feature.iconBg} mb-5`}
+                    className={`inline-flex items-center justify-center w-11 h-11 rounded-xl ${feature.iconBg} mb-6`}
                   >
                     <feature.icon
                       className={`h-5 w-5 ${feature.large ? "h-6 w-6" : ""}`}

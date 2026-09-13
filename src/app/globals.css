@@ -33,6 +33,7 @@ body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
   overflow-x: hidden;
 }
 

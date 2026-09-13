@@ -115,7 +115,7 @@ function DashboardScreen() {
         {[
           { label: "Total Units", value: "618", color: "text-accent" },
           { label: "Total Value", value: "$8,429", color: "text-success" },
-          { label: "Top Item", value: "Adapter Kit", color: "text-purple-400" },
+          { label: "Top Item", value: "Adapter Kit", color: "text-accent" },
           { label: "Locations", value: "4 zones", color: "text-yellow-400" },
         ].map((stat) => (
           <div key={stat.label} className="p-3 rounded-xl bg-[#111214] border border-border">
@@ -177,7 +177,7 @@ export default function ProductShowcase() {
   return (
     <section className="relative py-24 sm:py-32 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <FadeIn className="text-center max-w-3xl mx-auto mb-16">
+        <FadeIn className="text-center max-w-3xl mx-auto mb-20">
           <span className="text-accent text-sm font-semibold tracking-wider uppercase">
             Product
           </span>
@@ -192,12 +192,12 @@ export default function ProductShowcase() {
 
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           <FadeIn direction="left" className="lg:w-1/3">
-            <div className="space-y-2">
+            <div className="space-y-4">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActive(tab.id)}
-                  className={`w-full text-left p-5 rounded-2xl border transition-all duration-300 ${
+                  className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 ${
                     active === tab.id
                       ? "bg-surface border-accent/30 shadow-lg shadow-accent/5"
                       : "bg-transparent border-transparent hover:bg-surface/50 hover:border-border"

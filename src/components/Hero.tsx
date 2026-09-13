@@ -1,8 +1,51 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { motion, useInView } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import { FadeIn } from "./Animate";
+
+function AnimatedCounter({
+  end,
+  suffix = "",
+  duration = 2000,
+}: {
+  end: number;
+  suffix?: string;
+  duration?: number;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const startTime = Date.now();
+    const step = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * end));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [inView, end, duration]);
+
+  return (
+    <span ref={ref}>
+      {count.toLocaleString()}
+      {suffix}
+    </span>
+  );
+}
+
+const heroStats = [
+  { value: 10000, suffix: "+", label: "Items scanned" },
+  { value: 500, suffix: "+", label: "Active users" },
+  { value: 13, suffix: "", label: "Barcode formats" },
+  { value: 99.9, suffix: "%", label: "Scan accuracy", decimal: true },
+];
 
 function PhoneMockup() {
   return (
@@ -122,41 +165,40 @@ export default function Hero() {
 
             <FadeIn delay={0.3}>
               <p className="mt-6 text-lg sm:text-xl text-muted-light leading-relaxed max-w-xl mx-auto lg:mx-0">
-                The barcode inventory app that replaces spreadsheets. Scan
-                items in seconds, track stock in real-time, never run out
-                again.
+                The barcode inventory app that replaces spreadsheets. Scan items in
+                seconds, track stock in real-time, never run out again.
               </p>
             </FadeIn>
 
             <FadeIn delay={0.4}>
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <a
-                  href="#pricing"
+                <Link
+                  href="/register"
                   className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent hover:bg-accent-hover text-white font-semibold rounded-full transition-all hover:shadow-xl hover:shadow-accent/25 text-base"
                 >
                   Start Free — No Credit Card
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-                </a>
+                </Link>
                 <a
                   href="#how-it-works"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 hover:bg-white/10 text-foreground font-semibold rounded-full border border-border hover:border-border-hover transition-all text-base"
                 >
                   <Play className="h-4 w-4" />
-                  Watch Demo
+                  See How It Works
                 </a>
               </div>
             </FadeIn>
 
             <FadeIn delay={0.5}>
-              <div className="mt-10 flex items-center gap-6 justify-center lg:justify-start text-sm text-muted">
-                <div className="flex items-center gap-1.5">
-                  <svg className="h-4 w-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                  <span>4.9 / 5 rating</span>
-                </div>
-                <div className="h-4 w-px bg-border" />
-                <span>Free forever plan</span>
+              <div className="mt-12 pt-8 border-t border-border grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-8 text-left">
+                {heroStats.map((stat) => (
+                  <div key={stat.label}>
+                    <div className="text-2xl sm:text-3xl font-extrabold text-foreground tabular-nums">
+                      <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+                    </div>
+                    <div className="text-xs text-muted mt-1.5">{stat.label}</div>
+                  </div>
+                ))}
               </div>
             </FadeIn>
           </div>
