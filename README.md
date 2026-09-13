@@ -1,4 +1,4 @@
-# SupersellScanner
+# Scan Pluse
 
 A barcode scanning, inventory management, and point-of-sale (POS) app built with **Expo / React Native** and backed by **Supabase**. Scan a barcode, add it to your stock instantly, and start selling from your phone.
 
